@@ -1,5 +1,0 @@
-services:
-    python-app:
-        build: .
-        volumes:
-            - .:/app
