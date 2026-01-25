@@ -6,7 +6,7 @@ CREATE TABLE "restricted_personal_details_student" (
   "student_id" int NOT NULL,
   "first_name" varchar,
   "last_name" varchar,
-  "personal_number" int,
+  "personal_number" varchar,
   "email" varchar
 );
 
@@ -58,7 +58,7 @@ CREATE TABLE "educational_leader" (
 
 CREATE TABLE "restricted_educatioal_leader" (
   "leader_id" int NOT NULL,
-  "personal_number" int,
+  "personal_number" varchar,
   "salary_per_month" float
 );
 
@@ -93,7 +93,7 @@ CREATE TABLE "consultant" (
 
 CREATE TABLE "restricted_employed_educator" (
   "employed_educator_id" int PRIMARY KEY,
-  "personal_number" int,
+  "personal_number" varchar,
   "salary_per_month" float,
   "email" varchar,
   "adress" varchar
