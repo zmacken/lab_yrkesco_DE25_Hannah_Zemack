@@ -25,4 +25,18 @@ JOIN student_class stc ON stc.student_id = s.student_id
 JOIN school_class sc ON sc.class_id = stc.class_id
 JOIN educational_leader el ON el.leader_id = sc.leader_id;
 
+-- show grades program courses
+SELECT 
+    s.student_id,
+    r.first_name,
+    r.last_name,
+    pc.course_name,
+    pc.program_id,
+    gpc.grade
+FROM grades_program_course gpc
+JOIN student s ON s.student_id = gpc.student_id
+JOIN restricted_personal_details_student r ON r.student_id = s.student_id
+JOIN program_course pc ON pc.course_id = gpc.course_id;
+
+
 
