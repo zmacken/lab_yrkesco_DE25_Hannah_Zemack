@@ -1,4 +1,5 @@
-# lab_yrkesco_DE25_Hannah_Zemack# YrkesCo – Databasmodellering och Implementation  
+# lab_yrkesco_DE25_Hannah_Zemack
+# Databasmodellering och Implementation  
 Av: Hannah Zemack, DE25
 
 ## Syfte
@@ -7,7 +8,7 @@ Målet är att ersätta dagens fragmenterade Excel-miljö med en säker, skalbar
 
 ## Installation och körning
 
-### använd commandon i ordningen nedan:
+### Använd commandon i ordningen nedan:
 Navigera till mappen postgres och kör:
 
 docker-compose up -d
