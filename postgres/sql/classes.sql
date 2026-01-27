@@ -1,17 +1,13 @@
-SELECT
-    stc.student_id,
-    scc.class_name,
-    cpi.program_id,
-    gpc.grade,
-    pc.course_name,
-    p.program_name,
-    c.city_name
-FROM student_class stc
-LEFT JOIN school_class scc ON scc.class_id = stc.class_id
-LEFT JOIN class_program_instance cpi ON cpi.class_id = scc.class_id
-LEFT JOIN program p ON p.program_id = cpi.program_id
-LEFT JOIN student s ON s.student_id = stc.student_id
-LEFT JOIN grades_program_course gpc ON gpc.student_id = s.student_id
-LEFT JOIN program_course pc ON pc.course_id = gpc.course_id
-LEFT JOIN city c ON c.city_id = pc.city_id
-ORDER BY stc.student_id;
+SELECT 
+    s.student_id,
+    r.first_name AS student_first_name,
+    r.last_name AS student_last_name,
+    sc.class_name,
+    el.first_name AS leader_first_name,
+    el.last_name AS leader_last_name
+FROM student s
+JOIN restricted_personal_details_student r ON r.student_id = s.student_id
+JOIN student_class stc ON stc.student_id = s.student_id
+JOIN school_class sc ON sc.class_id = stc.class_id
+JOIN educational_leader el ON el.leader_id = sc.leader_id;
+

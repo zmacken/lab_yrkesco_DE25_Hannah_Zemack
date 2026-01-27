@@ -6,7 +6,7 @@ CREATE TABLE "restricted_personal_details_student" (
   "student_id" int NOT NULL,
   "first_name" varchar,
   "last_name" varchar,
-  "personal_number" varchar,
+  "personal_number" int,
   "email" varchar
 );
 
@@ -45,7 +45,6 @@ CREATE TABLE "student_class" (
 CREATE TABLE "school_class" (
   "class_id" int PRIMARY KEY NOT NULL,
   "leader_id" int,
-  "class_year" date NOT NULL,
   "class_name" varchar
 );
 
@@ -58,7 +57,7 @@ CREATE TABLE "educational_leader" (
 
 CREATE TABLE "restricted_educatioal_leader" (
   "leader_id" int NOT NULL,
-  "personal_number" varchar,
+  "personal_number" int,
   "salary_per_month" float
 );
 
@@ -93,7 +92,7 @@ CREATE TABLE "consultant" (
 
 CREATE TABLE "restricted_employed_educator" (
   "employed_educator_id" int PRIMARY KEY,
-  "personal_number" varchar,
+  "personal_number" int,
   "salary_per_month" float,
   "email" varchar,
   "adress" varchar
@@ -102,8 +101,6 @@ CREATE TABLE "restricted_employed_educator" (
 CREATE TABLE "class_program_instance" (
   "class_program_instance_id" int PRIMARY KEY,
   "class_id" int,
-  "approval_id" int,
-  "program_id" int,
   "start_date" date
 );
 
@@ -115,6 +112,7 @@ CREATE TABLE "program" (
 
 CREATE TABLE "approved_program_year" (
   "approval_id" int PRIMARY KEY,
+  "class_program_instance_id" int,
   "approval_year" int,
   "number_approved_years" int
 );
@@ -136,3 +134,49 @@ CREATE TABLE "program_course_instance" (
   "educator_id" int,
   "course_start_date" date
 );
+
+ALTER TABLE "restricted_personal_details_student" ADD FOREIGN KEY ("student_id") REFERENCES "student" ("student_id");
+
+ALTER TABLE "independent_course" ADD FOREIGN KEY ("city_id") REFERENCES "city" ("city_id");
+
+ALTER TABLE "independent_course_instance" ADD FOREIGN KEY ("independent_course_id") REFERENCES "independent_course" ("independent_course_id");
+
+ALTER TABLE "independent_course_instance" ADD FOREIGN KEY ("educator_id") REFERENCES "educator" ("educator_id");
+
+ALTER TABLE "student_independent_course" ADD FOREIGN KEY ("independent_course_instance_id") REFERENCES "independent_course_instance" ("independent_course_instance_id");
+
+ALTER TABLE "student_independent_course" ADD FOREIGN KEY ("student_id") REFERENCES "student" ("student_id");
+
+ALTER TABLE "grades_independent" ADD FOREIGN KEY ("student_id") REFERENCES "student" ("student_id");
+
+ALTER TABLE "grades_independent" ADD FOREIGN KEY ("independent_course_id") REFERENCES "independent_course" ("independent_course_id");
+
+ALTER TABLE "student_class" ADD FOREIGN KEY ("student_id") REFERENCES "student" ("student_id");
+
+ALTER TABLE "student_class" ADD FOREIGN KEY ("class_id") REFERENCES "school_class" ("class_id");
+
+ALTER TABLE "school_class" ADD FOREIGN KEY ("leader_id") REFERENCES "educational_leader" ("leader_id");
+
+ALTER TABLE "restricted_educatioal_leader" ADD FOREIGN KEY ("leader_id") REFERENCES "educational_leader" ("leader_id");
+
+ALTER TABLE "grades_program_course" ADD FOREIGN KEY ("student_id") REFERENCES "student" ("student_id");
+
+ALTER TABLE "grades_program_course" ADD FOREIGN KEY ("course_id") REFERENCES "program_course" ("course_id");
+
+ALTER TABLE "educator" ADD FOREIGN KEY ("consultant_id") REFERENCES "consultant" ("consultant_id");
+
+ALTER TABLE "educator" ADD FOREIGN KEY ("employed_educator_id") REFERENCES "restricted_employed_educator" ("employed_educator_id");
+
+ALTER TABLE "class_program_instance" ADD FOREIGN KEY ("class_id") REFERENCES "school_class" ("class_id");
+
+ALTER TABLE "approved_program_year" ADD FOREIGN KEY ("class_program_instance_id") REFERENCES "class_program_instance" ("class_program_instance_id");
+
+ALTER TABLE "program_course" ADD FOREIGN KEY ("program_id") REFERENCES "program" ("program_id");
+
+ALTER TABLE "program_course" ADD FOREIGN KEY ("city_id") REFERENCES "city" ("city_id");
+
+ALTER TABLE "program_course_instance" ADD FOREIGN KEY ("class_program_instance_id") REFERENCES "class_program_instance" ("class_program_instance_id");
+
+ALTER TABLE "program_course_instance" ADD FOREIGN KEY ("course_id") REFERENCES "program_course" ("course_id");
+
+ALTER TABLE "program_course_instance" ADD FOREIGN KEY ("educator_id") REFERENCES "educator" ("educator_id");
