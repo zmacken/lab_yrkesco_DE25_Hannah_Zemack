@@ -1,5 +1,5 @@
 INSERT INTO school_class (class_id, leader_id, class_name)
-VALUES (99, 1, NULL); -- cannot be null
+VALUES (null, 1, null); -- cannot be null
 
 
 INSERT INTO student_class (student_id, class_id) VALUES (101, 999); -- 999 finns inte i school_class
